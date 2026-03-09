@@ -4,7 +4,7 @@ Projeto acadêmico de **IoT aplicada à saúde** desenvolvido com a **BitDogLab 
 
 O sistema utiliza sensores embarcados para coletar dados físicos do ambiente/paciente e processa essas informações localmente, permitindo a exibição do estado do monitoramento durante a simulação prática do seminário.
 
----
+
 
 ## Objetivo do projeto
 
@@ -15,7 +15,7 @@ Este projeto foi desenvolvido como uma **simulação prática de monitoramento e
 - identificação de possível queda;
 - exibição do estado do sistema para fins didáticos e demonstrativos.
 
----
+
 
 ## Funcionalidades
 
@@ -45,7 +45,7 @@ Este projeto foi desenvolvido como uma **simulação prática de monitoramento e
 - Cabos jumper
 - Alimentação via USB
 
----
+
 
 ## Mapeamento de pinos
 
@@ -60,7 +60,7 @@ Este projeto foi desenvolvido como uma **simulação prática de monitoramento e
 - **Botão A (usuário/debug):** GPIO 5
 - **Botão B (BOOTSEL):** GPIO 6
 
----
+
 
 ## Lógica do sistema
 
@@ -89,7 +89,7 @@ De forma resumida, a lógica usada na simulação foi:
 - **Alerta de movimento brusco:** rotação/aceleração fora do padrão;
 - **Alerta de possível queda:** impacto + mudança brusca de inclinação.
 
----
+
 
 ## Saída do sistema
 
@@ -109,7 +109,7 @@ Exemplo de status:
 - `ALERTA: MOVIMENTO BRUSCO`
 - `ALERTA: POSSIVEL QUEDA`
 
----
+
 
 ## Estrutura do projeto
 
@@ -128,3 +128,64 @@ IotSaudePico/
 │   ├── Saude.bin
 │   └── ...
 └── .vscode/
+```
+## Requisitos para compilação
+
+Para compilar o projeto, você precisa ter instalado:
+
+- Raspberry Pi Pico SDK
+- CMake
+- Ninja ou Make
+- ARM GCC Toolchain
+- VS Code com extensão da Raspberry Pi Pico (opcional, mas recomendado)
+
+Como compilar
+1. Clone o repositório
+git clone https://github.com/Brunis1108/Seminario_IOT_Saude.git
+cd Seminario_IOT_Saude
+2. Crie a pasta de build
+mkdir build
+cd build
+3. Gere os arquivos do projeto
+cmake ..
+4. Compile
+cmake --build .
+
+Ao final da compilação, o arquivo gerado para gravação na placa será:
+- build/Saude.uf2
+
+Como gravar na placa
+
+1. Desconecte a placa do USB.
+2. Pressione e segure o botão BOOTSEL da Pico W.
+3. Conecte a placa ao computador.
+4. Solte o botão.
+5. Copie o arquivo Saude.uf2 para a unidade montada da placa.
+
+## Execução e monitoramento
+
+Após gravar o firmware:
+
+- abra o monitor serial;
+- aguarde a inicialização do sistema;
+- observe as leituras dos sensores;
+- simule mudanças de posição e movimentos bruscos;
+- acompanhe a alteração do status no terminal.
+
+## Wi-Fi
+
+O projeto utiliza conexão Wi-Fi com credenciais definidas diretamente no código-fonte:
+
+- #define WIFI_SSID "SEU SSID"
+- #define WIFI_PASSWORD "SUA SENHA"
+
+Antes de usar em outro ambiente, ajuste essas credenciais no arquivo Saude.c.
+
+## Observações importantes
+
+Este projeto tem finalidade acadêmica e demonstrativa. A detecção de queda foi implementada com base em uma heurística simples, não em um algoritmo clínico validado. O sistema não substitui dispositivos médicos ou soluções profissionais de monitoramento. Para uso real, seriam necessários testes mais robustos, calibração adequada e validação técnica.
+
+## Autoria
+
+Projeto desenvolvido para apresentação acadêmica na disciplina/seminário sobre IoT na Saúde.
+
